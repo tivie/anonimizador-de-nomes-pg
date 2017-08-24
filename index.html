@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="UTF-8" />
+<title>Gerador de nomes anonimizados</title>
+<style>
+html,
+body {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.wrapper {
+	width: 100%;
+	height: 90%;
+	display: flex;
+}
+
+.wrapper>div {
+	flex: 0 1 auto;
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	flex: 0 1 auto;
+	height: 75px;
+}
+
+.content {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.rightCol {
+	background-color: #333;
+	color: #fff;
+}
+
+.leftCol {
+	background-color: #444;
+	color: #fff;
+}
+
+textarea {
+	flex: 1 1 auto;
+	width: 96%;
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-bottom: 10px;
+	height: 100%;
+}
+
+#run {
+	margin-top: 10px;
+	margin-left: 1%;
+}
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+	<div class="rightCol">
+		<div class="header"><h1>Input</h1></div>
+		<div class="content"><textarea id="input"></textarea></div>
+	</div>
+	
+	<div class="leftCol">
+		<div class="header"><h1>Output</h1></div>
+		<div class="content"><textarea id="output"></textarea></div>
+	</div>
+</div>
+<div class="buttonWrapper">
+	<button id="run" onClick="run()">Correr</button>
+</div>
+
+<script>
+function run()
+{
+	document.getElementById('output').value = "";
+	var input  = document.getElementById('input').value;
+	var otp = '';
+
+	input = input.replace(/\t/g, ' ')
+				 .replace(/[aáàâãeéèêiíìîoóòôõuúùû]/ig,'')
+				 .replace(/\r\n|\r/, "\n");
+	var inputArray = input.split("\n");
+	
+	for (var i = 0; i < inputArray.length; ++i) {
+		var sOtp = lineParse(inputArray[i]);
+		otp = otp.concat(sOtp).toUpperCase();
+	}
+	
+	console.log(otp);
+	document.getElementById('output').value = otp;
+}
+
+function lineParse(line)
+{
+	var retStr = '';
+	var lineArray = line.split(" ");
+	
+	if (lineArray.length >= 1) {
+		var firstname = lineArray[0];
+		for (var i = 0; i < 2; ++i) {
+			if (firstname[i] !== void(0)) {
+				retStr = retStr.concat(firstname[i]);
+			}
+		}
+	}
+	
+	if (lineArray.length >= 2) {
+		var lastname = lineArray[lineArray.length-1];
+		for (var ii = 0; ii < 3; ++ii) {
+			if (lastname[ii] !== void(0)) {
+				retStr = retStr.concat(lastname[ii]);
+			}
+		}
+	}
+	retStr = retStr.concat("\n");
+	return retStr;
+}
+
+
+</script>
+</body>
+</html>
