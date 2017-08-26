@@ -112,16 +112,16 @@ function lineParse(line)
 			}
 		}
 	}
-	
+	retStr = retStr.concat(' ');
 	if (lineArray.length >= 2) {
 		var lastname = lineArray[lineArray.length-1];
 		for (var ii = 0; ii < 3; ++ii) {
 			if (lastname[ii] !== void(0)) {
-				retStr = retStr.concat(' ').concat(lastname[ii]);
+				retStr = retStr.concat(lastname[ii]);
 			}
 		}
 	}
-	retStr = retStr.concat("\n");
+	retStr = retStr.trim().concat("\n");
 	return retStr;
 }
 
