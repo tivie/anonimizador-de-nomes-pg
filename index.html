@@ -96,7 +96,6 @@ function run()
 		otp = otp.concat(sOtp).toUpperCase();
 	}
 	
-	console.log(otp);
 	document.getElementById('output').value = otp;
 }
 
@@ -118,7 +117,7 @@ function lineParse(line)
 		var lastname = lineArray[lineArray.length-1];
 		for (var ii = 0; ii < 3; ++ii) {
 			if (lastname[ii] !== void(0)) {
-				retStr = retStr.concat(lastname[ii]);
+				retStr = retStr.concat(' ').concat(lastname[ii]);
 			}
 		}
 	}
